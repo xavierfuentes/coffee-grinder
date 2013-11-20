@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+{{ form_start(form, { 'attr': { 'id': 'search-form' } }) }}
+<div class="input-group">
+    {{ form_widget(form.query, { 'attr': { 'class': 'form-control -search-input', 'placeholder': 'Search something tasty...' } }) }}
+    <span class="input-group-btn">
+        <button class="btn btn-default -search-button">Go!</button>
+    </span>
+</div>
+
+<section id="search-result" class="well clearfix"></section>
+
+<section id="search-result-actions" class="row">
+    <article class="col-xs-12 text-right"><button class="btn btn-primary -use-images-button" type="submit">Use these images</button></article>
+</section>
+{{ form_end(form) }}
+{% endblock %}

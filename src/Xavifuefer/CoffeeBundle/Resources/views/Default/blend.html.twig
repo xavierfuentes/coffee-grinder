@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+<div class="col-xs-6">
+    <article class="panel panel-default">
+        <header class="panel-heading"><h3 class="panel-title">Coffee Selection</h3></header>
+        <section class="panel-body">
+            {% for bean in beans %}
+            <form id="bean_{{ bean.id }}" class="row -add-grinder-form" action="{{ path('xavifuefer_coffee_grinder', { 'bean': bean.id }) }}">
+                <section class="col-xs-5">
+                    <img src="{{ bean.url }}" class="img-thumbnail">
+                </section>
+
+                <section class="col-xs-3">
+                    <input id="bean_amount" name="bean_amount" type="number" value="{{ bean.amount }}" class="form-control">
+                    <input id="bean_url" name="bean_url" type="hidden" value="{{ bean.url }}">
+                </section>
+
+                <section class="col-xs-4 text-center">
+                    <button class="btn btn-default -add-to-grinder-button" type="submit">Add to Grinder</button>
+                </section>
+            </form>
+            {% endfor %}
+        </section>
+    </article>
+</div>
+
+<div class="col-xs-6">
+    <article class="panel panel-default">
+        <header class="panel-heading"><h3 class="panel-title">Currently in Grinder</h3></header>
+        <section class="panel-body">
+            <div class="-grinder-content" data-prototype="<article class='row'><section class='col-xs-5'><img src='[bean_url]' alt='' class='img-thumbnail'></section><section class='col-xs-7'><p>[bean_amount]</p></section></article>"></div>
+            <footer class="-grinder-actions text-right"><button class="btn btn-primary -grinder-actions-grind" data-term="{{ term.id }}">Grind!</button></footer>
+        </section>
+    </article>
+</div>
+{% endblock %}

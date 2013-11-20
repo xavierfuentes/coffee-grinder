@@ -1,0 +1,7 @@
+parameters:
+#    xavifuefer_coffee.example.class: Xavifuefer\CoffeeBundle\Example
+
+services:
+#    xavifuefer_coffee.example:
+#        class: %xavifuefer_coffee.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,3 @@
+xavifuefer_coffee:
+    resource: "@XavifueferCoffeeBundle/Resources/config/routing.yml"
+    prefix:   /

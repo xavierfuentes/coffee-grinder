@@ -1,0 +1,23 @@
+xavifuefer_coffee_homepage:
+    pattern:  /
+    defaults: { _controller: XavifueferCoffeeBundle:Default:search }
+
+xavifuefer_coffee_blender:
+    pattern:  /blend/{term}
+    defaults: { _controller: XavifueferCoffeeBundle:Default:blend }
+    requirements:
+        # the term id must be a number
+        term:  \d+
+
+xavifuefer_coffee_grinder:
+    pattern:  /grind/{bean}
+    defaults: { _controller: XavifueferCoffeeBundle:Default:grind }
+    requirements:
+        # the bean id must be a number
+        bean:  \d+
+    # accept only POST requests
+    methods:  [POST]
+
+xavifuefer_coffee_thanks:
+    pattern:  /thanks/{term}
+    defaults: { _controller: XavifueferCoffeeBundle:Default:thanks }
