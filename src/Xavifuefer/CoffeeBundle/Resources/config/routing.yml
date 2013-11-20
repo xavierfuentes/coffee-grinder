@@ -21,3 +21,5 @@ xavifuefer_coffee_grinder:
 xavifuefer_coffee_thanks:
     pattern:  /thanks/{term}
     defaults: { _controller: XavifueferCoffeeBundle:Default:thanks }
+    options:
+        expose: true

@@ -6,12 +6,19 @@
         var self = this
             , imageSearch = new google.search.ImageSearch();
 
+        /**
+         * Using Google API this method finds images matching a term sent
+         */
         self.find = function( term, container, callback ){
             imageSearch.setSearchCompleteCallback(this, self.drawResults, [container]);
             imageSearch.execute(term);
             callback();
         };
 
+        /**
+         * draws Google Custom Search API response
+         * Todo: why always just 4 results?
+         */
         self.drawResults = function( $container ){
             var results = imageSearch.results;
 
@@ -36,6 +43,9 @@
             }
         }
 
+        /**
+         * post a form data via AJAX
+         */
         self.postForm = function( url, data, callback ){
             var jqXHR = $.post( url, data )
             .done(function( response, textStatus, jqXHR ) {
@@ -54,8 +64,6 @@
     };
 
     application.Bind = function (app, selector) {
-        // Handle all HTML-specific code here
-
         var $wrapper = $(selector || window.document)
             , $searchForm           = $('#search-form')
             , $searchInput          = $('.-search-input')
@@ -75,7 +83,7 @@
         });
 
         $wrapper
-            .on('click', searchBtnSel, function( event ) {
+            .on('click', searchBtnSel, function( event ) { // Search button is clicked
                 var term = $searchInput.val();
 
                 if( '' == $searchInput.val() ){
@@ -91,12 +99,12 @@
                     $searchResultAction.show('slow');
                 });
             })
-            .on('click', '.thumbnail', function( event ){
+            .on('click', '.thumbnail', function( event ){ // A thumbnail is clicked
                 event.preventDefault();
 
                 $(this).toggleClass('selected');
             })
-            .on('submit', $searchForm, function( event ){
+            .on('submit', $searchForm, function( event ){ // All images selected are sent via POST
                 event.preventDefault();
 
                 var imagesSelected = $searchResultCont.find(".selected")
@@ -109,6 +117,7 @@
 
                     $sendButton.button('loading');
 
+                    // building an array-like query parameter made of all the images selected
                     data += '&urls=[';
                     for ( var i = 0; i < imagesSelected.length; i++ ) {
                         if( i > 0 ) data += ',' ;
@@ -124,7 +133,7 @@
                     $sendButton.tooltip({ title: "You have to select one or more..." });
                 }
             })
-            .on('submit', addToGrinderSel, function( event ){
+            .on('submit', addToGrinderSel, function( event ){ // Posts to REDIS the number and images of beans
                 event.preventDefault();
 
                 var $form = $(this)
@@ -143,8 +152,8 @@
                     }
                 });
             })
-            .on('click', ActionsGrindSel, function(){
-                window.location = '/app_dev.php/thanks/' + $(this).data('term');
+            .on('click', ActionsGrindSel, function(){ //
+                window.location = Routing.generate('xavifuefer_coffee_thanks', { 'term': $(this).data('term') });
             })
         ;
     };
