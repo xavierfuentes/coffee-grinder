@@ -32,6 +32,7 @@ class DefaultController extends Controller
 
             $term->setQuery( $form->getData()->getQuery() );
 
+            // Takes the special array-like url parameter and converts it to a real array
             $urls = str_replace(array('[',']' ), "", $request->get('urls'));
             $urls = split(',', $urls);
             foreach( $urls as $url ) {
@@ -69,7 +70,7 @@ class DefaultController extends Controller
         if( !$bean ) { return new JsonResponse( array( 'success' => false ) ); }
 
         $redis = $this->container->get('snc_redis.default');
-
+        // saves the bean data in a list like 'bean:1:amount', '3'
         $redis->set('bean:' . $bean->getId() . ':' . 'amount', $request->get('bean_amount'));
         $redis->set('bean:' . $bean->getId() . ':' . 'url', $bean->getUrl());
 
