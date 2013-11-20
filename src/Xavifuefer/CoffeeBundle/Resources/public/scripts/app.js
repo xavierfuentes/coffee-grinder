@@ -152,7 +152,7 @@
                     }
                 });
             })
-            .on('click', ActionsGrindSel, function(){ //
+            .on('click', ActionsGrindSel, function(){ // finishes all the process
                 window.location = Routing.generate('xavifuefer_coffee_thanks', { 'term': $(this).data('term') });
             })
         ;
